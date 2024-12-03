@@ -3,6 +3,7 @@ const path = require('path');
 const https = require('https');
 const express = require('express');
 const helmet = require('helmet');
+const { error } = require('console');
 
 const PORT = 3000;
 
@@ -10,7 +11,23 @@ const app = express();
 
 app.use(helmet());
 
-app.get('/secret', (req, res) => {
+function checkLoggedIn(req, res, next) {
+  const isLoggedIn = true; //TODO
+  if (!isLoggedIn) {
+    return res.status(401).json({
+      error: 'You must log in!',
+    });
+  }
+  next();
+}
+
+app.get('/auth/google', (req, res) => {});
+
+app.get('/auth/google/callback', (req, res) => {});
+
+app.get('/auth/logout', (req, res) => {});
+
+app.get('/secret', checkLoggedIn, (req, res) => {
   return res.send('Your presonal secret value is 42!');
 });
 
