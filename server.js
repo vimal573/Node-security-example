@@ -3,9 +3,15 @@ const path = require('path');
 const https = require('https');
 const express = require('express');
 const helmet = require('helmet');
-const { error } = require('console');
 
-const PORT = 3000;
+require('dotenv').config();
+
+const PORT = process.env.PORT || 3000;
+
+const config = {
+  CLIENT_ID: process.env.CLIENT_ID,
+  CLIENT_SECRET: process.env.CLIENT_SECRET,
+};
 
 const app = express();
 
